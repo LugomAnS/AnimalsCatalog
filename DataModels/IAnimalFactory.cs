@@ -8,6 +8,6 @@ namespace DataModels
 {
     public interface IAnimalFactory
     {
-        public IAnimal GetNewAnimal(string animalType, string? animalSubtype, string? description);
+        public IAnimal GetNewAnimal(string animalType, string? animalSubtype = null, string? description = null);
     }
 }
