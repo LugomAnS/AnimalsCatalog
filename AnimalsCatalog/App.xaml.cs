@@ -3,6 +3,8 @@ using System.Windows;
 using AnimalsCatalog.Services;
 using AnimalsCatalog.Services.Implementation;
 using AnimalsCatalog.ViewModels;
+using DataModels;
+using DataModels.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalsCatalog
@@ -29,6 +31,7 @@ namespace AnimalsCatalog
 
             services.AddSingleton<IUserDialog, UserDialogImplementation>();
             services.AddSingleton<MainWindowViewModel>();
+            services.AddTransient<IAnimalFactory, AnimalFactory>();
 
             // MainWindow
             services.AddSingleton(s =>
@@ -38,6 +41,7 @@ namespace AnimalsCatalog
                 return window;
             });
 
+            
 
             return services;
         }
