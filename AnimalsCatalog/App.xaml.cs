@@ -1,17 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using AnimalsCatalog.Services;
+using AnimalsCatalog.Services.Implementation;
+using AnimalsCatalog.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalsCatalog
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
+        private static IServiceProvider? _serviceProvider;
+
+        public static IServiceProvider ServiceProvider
+        {
+            get
+            {
+                _serviceProvider = InitServiceCollection().BuildServiceProvider();
+                return _serviceProvider;
+            }
+        }
+
+        private static IServiceCollection InitServiceCollection()
+        {
+            var services = new ServiceCollection();
+
+            services.AddSingleton<IUserDialog, UserDialogImplementation>();
+            services.AddSingleton<MainWindowViewModel>();
+
+            // MainWindow
+            services.AddSingleton(s =>
+            {
+                var model = s.GetRequiredService<MainWindowViewModel>();
+                var window = new MainWindow { DataContext = model };
+                return window;
+            });
+
+
+            return services;
+        }
+
+        #region Overrides of Application
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            ServiceProvider.GetService<IUserDialog>()?.OpenMainWindow();
+        }
+
+        #endregion
     }
 }
