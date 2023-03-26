@@ -39,6 +39,9 @@ namespace AnimalsCatalog
             services.AddSingleton<IDataAccess, SqlData>();
             services.AddSingleton<SqlLiteDataContext>();
             services.AddSingleton<DataProviderWindowChangeVIewModel>();
+            services.AddSingleton<IDataProviderChange, DataProviderChangeImplementation>();
+            services.AddTransient<IDataProviderChanger, DataProviderChangeImplementation>();
+            services.AddTransient<IDataAccessFactory, DataAccessFactoryImplementation>();
 
             // MainWindow
             services.AddSingleton(s =>

@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using AnimalsCatalog.Services;
+using DataAccess;
 using DataModels;
 using Infrastructure;
 
@@ -25,6 +26,18 @@ namespace AnimalsCatalog.ViewModels
         #region AnimalFactory service
 
         private readonly IAnimalFactory _animalFactory;
+
+        #endregion
+
+        #region Provider changing service
+
+        private readonly IDataProviderChange _providerChange;
+
+        #endregion
+
+        #region Data access source
+
+        private IDataAccess? _dataAccess = null;
 
         #endregion
 
@@ -88,11 +101,26 @@ namespace AnimalsCatalog.ViewModels
             ChangeProviderWindowCommand = new Command(OnChangeProviderWindowCommandExecute);
         }
 
-        public MainWindowViewModel(IUserDialog userDialog, IAnimalFactory animalFactory) : this()
+        public MainWindowViewModel(IUserDialog userDialog, 
+                                   IAnimalFactory animalFactory,
+                                   IDataProviderChange providerChange) : this()
         {
             _userDialog = userDialog;
             _animalFactory = animalFactory;
+            _providerChange = providerChange;
+            _providerChange.ProviderChange += OnProviderChange;
+
         }
+        #endregion
+
+        #region Provider change
+
+        private void OnProviderChange(IDataAccess dataAccess)
+        {
+            _dataAccess = dataAccess;
+            Animals = _dataAccess?.GetAllAnimalData();
+        }
+
         #endregion
 
         #region Commands
