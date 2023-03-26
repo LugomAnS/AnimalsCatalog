@@ -1,4 +1,5 @@
-﻿using AnimalsCatalog.Services;
+﻿using System.Collections.ObjectModel;
+using AnimalsCatalog.Services;
 using DataModels;
 using Infrastructure;
 
@@ -21,7 +22,21 @@ namespace AnimalsCatalog.ViewModels
 
         #region AnimalFactory service
 
-        private readonly IAnimalFactory _animalFactory; 
+        private readonly IAnimalFactory _animalFactory;
+
+        #endregion
+
+        #region ObservableCollection<IAnimal> - Animals collection
+
+        ///<summary>Animals collection</summary>
+        private ObservableCollection<IAnimal>? _animals;
+
+        ///<summary>Animals collection</summary>
+        public ObservableCollection<IAnimal>? Animals
+        {
+            get => _animals;
+            set => Set(ref _animals, value);
+        }
 
         #endregion
 

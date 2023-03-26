@@ -7,7 +7,34 @@
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable = True} "
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
-    <Grid>
+    <DockPanel>
+        <GroupBox Header="Список животных" DockPanel.Dock="Left">
+            <ListBox ItemsSource="{Binding Animals}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="3,1,3,1">
+                            <TextBlock Text="{Binding AnimalType}" FontSize="12"/>
+                            <TextBlock Text="{Binding AnimalSubType}" FontSize="8"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox DockPanel.Dock="Top" Header="Действия">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Источник данных" Margin="3,5,3,3"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Добавить млекопитающее" Margin="3" />
+                    <Button Content="Добавить птицу"         Margin="3" />
+                    <Button Content="Добавить земноводное"   Margin="3" />
+                    <Button Content="Добавить вручную" Margin="3"/>
+                    <Button Content="Удалить запись" Margin="3"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
 
-    </Grid>
+        <UserControl />
+    </DockPanel>
 </Window>
