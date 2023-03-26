@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Windows.Controls;
+using AnimalsCatalog.Views;
+using DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalsCatalog.Services.Implementation
@@ -26,6 +29,11 @@ namespace AnimalsCatalog.Services.Implementation
 
             _mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             _mainWindow.Show();
+        }
+
+        public UserControl ChangeDataProvider()
+        {
+            return _serviceProvider.GetRequiredService<DataProviderWindowChange>();
         }
     }
 }

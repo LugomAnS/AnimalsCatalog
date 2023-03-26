@@ -40,6 +40,6 @@
             </StackPanel>
         </GroupBox>
 
-        <UserControl />
+        <UserControl Content="{Binding UserWorkControl}"/>
     </DockPanel>
 </Window>

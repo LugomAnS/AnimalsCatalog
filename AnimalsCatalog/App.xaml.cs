@@ -3,9 +3,13 @@ using System.Windows;
 using AnimalsCatalog.Services;
 using AnimalsCatalog.Services.Implementation;
 using AnimalsCatalog.ViewModels;
+using AnimalsCatalog.Views;
+using DataAccess;
+using DataAccess.Implementation;
 using DataModels;
 using DataModels.Implementation;
 using Microsoft.Extensions.DependencyInjection;
+using SQLDataProvider;
 
 namespace AnimalsCatalog
 {
@@ -32,6 +36,9 @@ namespace AnimalsCatalog
             services.AddSingleton<IUserDialog, UserDialogImplementation>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddTransient<IAnimalFactory, AnimalFactory>();
+            services.AddSingleton<IDataAccess, SqlData>();
+            services.AddSingleton<SqlLiteDataContext>();
+            services.AddSingleton<DataProviderWindowChangeVIewModel>();
 
             // MainWindow
             services.AddSingleton(s =>
@@ -41,6 +48,13 @@ namespace AnimalsCatalog
                 return window;
             });
 
+            // Change data provider window
+            services.AddTransient(s =>
+            {
+                var model = s.GetRequiredService<DataProviderWindowChangeVIewModel>();
+                var window = new DataProviderWindowChange { DataContext = model };
+                return window;
+            });
             
 
             return services;

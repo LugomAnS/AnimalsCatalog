@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Controls;
 using System.Windows.Input;
 using AnimalsCatalog.Services;
 using DataModels;
@@ -55,6 +56,24 @@ namespace AnimalsCatalog.ViewModels
 
         #endregion
 
+        #region Custom User control
+
+        #region userWorkControl: UserControl - Control for different user works
+
+        ///<summary>Control for different user works</summary>
+        private UserControl _userWorkControl;
+
+        ///<summary>Control for different user works</summary>
+        public UserControl UserWorkControl
+        {
+            get => _userWorkControl;
+            set => Set(ref _userWorkControl, value);
+        }
+
+        #endregion
+
+        #endregion
+
         #endregion
 
         #region Constructors
@@ -66,6 +85,7 @@ namespace AnimalsCatalog.ViewModels
             AddBirdCommand = new Command(OnAddBirdCommandExecute, CanAddAnimalCommandExecute);
             AddAmphibianCommand = new Command(OnAddAmphibianCommandExecute, CanAddAnimalCommandExecute);
             DeleteAnimalCommand = new Command(OnDeleteAnimalCommandExecute, CanDeleteAnimalCommandExecute);
+            ChangeProviderWindowCommand = new Command(OnChangeProviderWindowCommandExecute);
         }
 
         public MainWindowViewModel(IUserDialog userDialog, IAnimalFactory animalFactory) : this()
@@ -123,6 +143,17 @@ namespace AnimalsCatalog.ViewModels
 
         private bool CanDeleteAnimalCommandExecute(object? p)
             => SelectedAnimal != null;
+
+        #endregion
+
+        #region Change data provider window
+        public ICommand ChangeProviderWindowCommand { get; }
+
+        private void OnChangeProviderWindowCommandExecute(object? p)
+        {
+            UserWorkControl = _userDialog!.ChangeDataProvider();
+        }
+
 
         #endregion
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataModels.Models
+﻿namespace DataModels.Models
 {
     public class Amphibian : IAnimal
     {
+        public int Id { get; set; }
         public string AnimalType { get; set; }
         public string? AnimalSubType { get; set; }
         public string? Description { get; set; }
