@@ -19,7 +19,7 @@ namespace AnimalsCatalog.ViewModels
 
         #region UserDialog Service
 
-        private readonly IUserDialog? _userDialog;
+        private readonly IUserDialog _userDialog;
 
         #endregion
 
@@ -38,6 +38,12 @@ namespace AnimalsCatalog.ViewModels
         #region Data access source
 
         private IDataAccess? _dataAccess = null;
+
+        public IDataAccess? DataAccess
+        {
+            get => _dataAccess;
+            set => Set(ref _dataAccess, value);
+        }
 
         #endregion
 
@@ -74,10 +80,10 @@ namespace AnimalsCatalog.ViewModels
         #region userWorkControl: UserControl - Control for different user works
 
         ///<summary>Control for different user works</summary>
-        private UserControl _userWorkControl;
+        private UserControl? _userWorkControl;
 
         ///<summary>Control for different user works</summary>
-        public UserControl UserWorkControl
+        public UserControl? UserWorkControl
         {
             get => _userWorkControl;
             set => Set(ref _userWorkControl, value);
@@ -117,8 +123,9 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnProviderChange(IDataAccess dataAccess)
         {
-            _dataAccess = dataAccess;
-            Animals = _dataAccess?.GetAllAnimalData();
+            DataAccess = dataAccess;
+            Animals = DataAccess?.GetAllAnimalData();
+            UserWorkControl = null;
         }
 
         #endregion
@@ -127,7 +134,7 @@ namespace AnimalsCatalog.ViewModels
 
         #region Check - can add animal
         private bool CanAddAnimalCommandExecute(object? p)
-            => _animals != null;
+            => Animals != null && DataAccess != null;
         #endregion
 
         #region Add mammal command
@@ -136,7 +143,8 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnAddMammalCommandExecute(object? p)
         {
-            Animals?.Add(_animalFactory.GetNewAnimal("Млекопитающее"));
+            //Animals?.Add(_animalFactory.GetNewAnimal("Млекопитающее"));
+            DataAccess!.AddAnimal(_animalFactory.GetNewAnimal("Млекопитающее"));
         }
 
         #endregion
@@ -146,7 +154,8 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnAddBirdCommandExecute(object? p)
         {
-            Animals?.Add(_animalFactory.GetNewAnimal("Птица"));
+            //Animals?.Add(_animalFactory.GetNewAnimal("Птица"));
+            DataAccess!.AddAnimal(_animalFactory.GetNewAnimal("Птица"));
         }
 
         #endregion
@@ -156,7 +165,8 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnAddAmphibianCommandExecute(object? p)
         {
-            Animals?.Add(_animalFactory.GetNewAnimal("Земноводное"));
+            //Animals?.Add(_animalFactory.GetNewAnimal("Земноводное"));
+            DataAccess!.AddAnimal(_animalFactory.GetNewAnimal("Земноводное"));
         }
 
         #endregion
@@ -166,7 +176,8 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnDeleteAnimalCommandExecute(object? p)
         {
-            Animals?.Remove(SelectedAnimal!);
+            //Animals?.Remove(SelectedAnimal!);
+            DataAccess!.DeleteAnimal(SelectedAnimal!);
         }
 
         private bool CanDeleteAnimalCommandExecute(object? p)
@@ -179,7 +190,7 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnChangeProviderWindowCommandExecute(object? p)
         {
-            UserWorkControl = _userDialog!.ChangeDataProvider();
+            UserWorkControl = _userDialog.ChangeDataProvider();
         }
 
 
