@@ -36,7 +36,7 @@ namespace AnimalsCatalog
             services.AddSingleton<IUserDialog, UserDialogImplementation>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddTransient<IAnimalFactory, AnimalFactory>();
-            services.AddSingleton<IDataAccess, SqlData>();
+            services.AddSingleton<SqlData>();
             services.AddSingleton<SqlLiteDataContext>();
             services.AddTransient<DataProviderWindowChangeVIewModel>();
             services.AddSingleton<IDataProviderChange, DataProviderChangeImplementation>();

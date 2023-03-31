@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
 using AnimalsCatalog.Views;
-using DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalsCatalog.Services.Implementation

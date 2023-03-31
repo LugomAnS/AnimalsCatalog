@@ -16,7 +16,7 @@ namespace AnimalsCatalog.Services.Implementation
         public IDataAccess GetDataProvider(string provider)
             => provider switch
             {
-                "SQL" => _serviceProvider.GetRequiredService<IDataAccess>(),
+                "SQL" => _serviceProvider.GetRequiredService<SqlData>(),
                 _ => new NullDataAccess(),
             };
     }

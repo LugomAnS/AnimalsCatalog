@@ -1,6 +1,6 @@
 ﻿namespace DataModels.Models
 {
-    internal class Mammal : IAnimal
+    public class Mammal : IAnimal
     {
         public int Id { get; set; }
         public string AnimalType { get; set; }

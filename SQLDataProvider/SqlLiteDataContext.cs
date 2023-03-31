@@ -1,11 +1,13 @@
-﻿using DataModels;
+﻿using DataModels.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace SQLDataProvider
 {
     public class SqlLiteDataContext : DbContext
     {
-        public DbSet<IAnimal> Animals { get; set; } = null!;
+        public DbSet<Amphibian> Amphibians { get; set; } = null!;
+        public DbSet<Bird> Birds { get; set; } = null!;
+        public DbSet<Mammal> Mammals { get; set; } = null!;
 
         public SqlLiteDataContext()
         {
