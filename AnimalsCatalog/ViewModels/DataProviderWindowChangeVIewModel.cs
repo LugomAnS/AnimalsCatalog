@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using AnimalsCatalog.Services;
+﻿using AnimalsCatalog.Services;
 using Infrastructure;
 using System.Windows.Input;
 
@@ -20,8 +13,7 @@ namespace AnimalsCatalog.ViewModels
         private readonly IDataProviderChanger _dataProviderChanger;
 
         #endregion
-
-
+        
         private string? _providerChoice = null;
 
         #endregion

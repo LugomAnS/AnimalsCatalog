@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataAccess;
+using DataAccess.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataAccess.Implementation
+namespace AnimalsCatalog.Services.Implementation
 {
     internal class DataAccessFactoryImplementation : IDataAccessFactory
     {

@@ -30,12 +30,6 @@ namespace AnimalsCatalog.ViewModels
 
         #endregion
 
-        #region Provider changing service
-
-        private readonly IDataProviderChange _providerChange;
-
-        #endregion
-
         #region Data access source
 
         private IDataAccess? _dataAccess = null;
@@ -109,12 +103,10 @@ namespace AnimalsCatalog.ViewModels
         }
 
         public MainWindowViewModel(IUserDialog userDialog, 
-                                   IAnimalFactory animalFactory,
-                                   IDataProviderChange providerChange) : this()
+                                   IAnimalFactory animalFactory) : this()
         {
             _userDialog = userDialog;
             _animalFactory = animalFactory;
-            _providerChange = providerChange;
             DataProviderChangeImplementation.ProviderChange += OnProviderChange;
 
         }
