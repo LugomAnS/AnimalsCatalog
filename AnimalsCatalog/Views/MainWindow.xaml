@@ -24,7 +24,8 @@
         <GroupBox DockPanel.Dock="Top" Header="Действия">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Источник данных" Margin="3,5,3,3"/>
+                    <Button Content="Источник данных" Margin="3,5,3,3"
+                            Command="{Binding ChangeProviderWindowCommand}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Добавить млекопитающее" Margin="3" 

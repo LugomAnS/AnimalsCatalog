@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using AnimalsCatalog.Services;
+using AnimalsCatalog.Services.Implementation;
 using DataAccess;
 using DataModels;
 using Infrastructure;
@@ -114,7 +115,7 @@ namespace AnimalsCatalog.ViewModels
             _userDialog = userDialog;
             _animalFactory = animalFactory;
             _providerChange = providerChange;
-            _providerChange.ProviderChange += OnProviderChange;
+            DataProviderChangeImplementation.ProviderChange += OnProviderChange;
 
         }
         #endregion

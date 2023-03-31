@@ -7,7 +7,7 @@ namespace AnimalsCatalog.Services.Implementation
     {
         private readonly IDataAccessFactory _dataAccessFactory;
 
-        public event Action<IDataAccess>? ProviderChange;
+        public static event Action<IDataAccess>? ProviderChange;
 
         public DataProviderChangeImplementation(IDataAccessFactory dataAccessFactory)
         {

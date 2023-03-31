@@ -18,7 +18,7 @@ namespace DataAccess.Implementation
         public IDataAccess GetDataProvider(string provider)
             => provider switch
             {
-                "SQL" => _serviceProvider.GetRequiredService<SqlData>(),
+                "SQL" => _serviceProvider.GetRequiredService<IDataAccess>(),
                 _ => new NullDataAccess(),
             };
     }

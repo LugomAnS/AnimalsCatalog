@@ -5,6 +5,6 @@ namespace AnimalsCatalog.Services
 {
     internal interface IDataProviderChange
     {
-        public event Action<IDataAccess> ProviderChange;
+        public static event Action<IDataAccess> ProviderChange;
     }
 }

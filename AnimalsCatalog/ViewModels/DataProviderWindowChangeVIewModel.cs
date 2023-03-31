@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using AnimalsCatalog.Services;
 using Infrastructure;
+using System.Windows.Input;
 
 namespace AnimalsCatalog.ViewModels
 {
@@ -18,26 +21,55 @@ namespace AnimalsCatalog.ViewModels
 
         #endregion
 
-        #region selectedProvider: string - New provider choice
 
-        ///<summary>New provider choice</summary>
-        private string _selectedProvider;
-
-        ///<summary>New provider choice</summary>
-        public string SelectedProvider
-        {
-            get => _selectedProvider;
-            set => Set(ref _selectedProvider, value);
-        }
+        private string? _providerChoice = null;
 
         #endregion
 
-        #endregion
+     
 
-        public DataProviderWindowChangeVIewModel(IDataProviderChanger dataProviderChanger)
+        public DataProviderWindowChangeVIewModel(IDataProviderChanger dataProviderChanger) : this()
         {
             _dataProviderChanger = dataProviderChanger;
             
         }
+
+        public DataProviderWindowChangeVIewModel()
+        {
+            ProviderSelectionCommand = new Command(OnProviderSelectionCommandExecute, CanProviderSelectionCommandExecute);
+            ApplyProviderChoiceCommand = new Command(OnApplyProviderChoiceCommandExecute,
+                CanApplyProviderChoiceCommandExecute);
+        }
+
+        #region Commands
+
+        #region Provider radio button selection
+
+        public ICommand ProviderSelectionCommand { get; }
+
+        private void OnProviderSelectionCommandExecute(object? p)
+        {
+            _providerChoice = p as string;
+        }
+
+        private bool CanProviderSelectionCommandExecute(object? p) => true;
+
+        #endregion
+
+        #region Apply provider choice
+        public  ICommand ApplyProviderChoiceCommand { get; }
+
+        private void OnApplyProviderChoiceCommandExecute(object? p)
+        {
+            _dataProviderChanger.ProviderChanging(_providerChoice!);
+        }
+
+        private bool CanApplyProviderChoiceCommandExecute(object? p)
+            => _providerChoice != null;
+
+        #endregion
+
+        #endregion
+
     }
 }

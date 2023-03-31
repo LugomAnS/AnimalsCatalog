@@ -4,9 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AnimalsCatalog.Views"
+             xmlns:vm="clr-namespace:AnimalsCatalog.ViewModels"
+             d:DataContext="{d:DesignInstance vm:DataProviderWindowChangeVIewModel, IsDesignTimeCreatable = True}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <GroupBox Header="Выбор поставщика данных">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Выбрать" Margin="3"
+                        Command="{Binding ApplyProviderChoiceCommand}"/>
+                <Button Content="Отмена" Margin="3" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" >
+                <RadioButton Content="SQL" Command="{Binding ProviderSelectionCommand}"
+                             CommandParameter="{Binding Content, 
+                                    RelativeSource={RelativeSource Self}}"/>
+                <RadioButton Content="Text" Command="{Binding ProviderSelectionCommand}"
+                             CommandParameter="{Binding Content, 
+                                    RelativeSource={RelativeSource Self}}"/>
+            </StackPanel>
+        </DockPanel>
+    </GroupBox>
 </UserControl>
