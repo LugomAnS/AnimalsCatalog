@@ -136,8 +136,8 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnAddMammalCommandExecute(object? p)
         {
-            //Animals?.Add(_animalFactory.GetNewAnimal("Млекопитающее"));
             DataAccess!.AddAnimal(_animalFactory.GetNewAnimal("Млекопитающее"));
+            Animals = DataAccess.GetAllAnimalData();
         }
 
         #endregion
@@ -171,6 +171,7 @@ namespace AnimalsCatalog.ViewModels
         {
             //Animals?.Remove(SelectedAnimal!);
             DataAccess!.DeleteAnimal(SelectedAnimal!);
+            Animals = DataAccess.GetAllAnimalData();
         }
 
         private bool CanDeleteAnimalCommandExecute(object? p)

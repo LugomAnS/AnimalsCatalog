@@ -27,7 +27,7 @@ namespace DataAccess.Implementation
 
         public void DeleteAnimal(IAnimal animal)
         {
-          //  _db.Animals.Remove(animal);
+            _db.Mammals.Remove(animal as Mammal);
             _db.SaveChanges();
         }
 
