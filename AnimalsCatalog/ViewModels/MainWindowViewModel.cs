@@ -147,8 +147,8 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnAddBirdCommandExecute(object? p)
         {
-            //Animals?.Add(_animalFactory.GetNewAnimal("Птица"));
             DataAccess!.AddAnimal(_animalFactory.GetNewAnimal("Птица"));
+            Animals = DataAccess.GetAllAnimalData();
         }
 
         #endregion
@@ -158,8 +158,8 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnAddAmphibianCommandExecute(object? p)
         {
-            //Animals?.Add(_animalFactory.GetNewAnimal("Земноводное"));
             DataAccess!.AddAnimal(_animalFactory.GetNewAnimal("Земноводное"));
+            Animals = DataAccess.GetAllAnimalData();
         }
 
         #endregion
@@ -169,7 +169,6 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnDeleteAnimalCommandExecute(object? p)
         {
-            //Animals?.Remove(SelectedAnimal!);
             DataAccess!.DeleteAnimal(SelectedAnimal!);
             Animals = DataAccess.GetAllAnimalData();
         }

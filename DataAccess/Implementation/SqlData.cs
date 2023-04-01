@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
 using DataModels;
 using DataModels.Models;
 using Microsoft.EntityFrameworkCore;
@@ -21,13 +20,39 @@ namespace DataAccess.Implementation
 
         public void AddAnimal(IAnimal animal)
         {
-            _db.Mammals.Add(animal as Mammal);
+            if (animal is Mammal)
+            {
+                _db.Mammals.Add((Mammal)animal);
+            }
+
+            if (animal is Bird)
+            {
+                _db.Birds.Add((Bird)animal);
+            }
+
+            if (animal is Amphibian)
+            {
+                _db.Amphibians.Add((Amphibian)animal);
+            }
             _db.SaveChanges();
         }
 
         public void DeleteAnimal(IAnimal animal)
         {
-            _db.Mammals.Remove(animal as Mammal);
+            if (animal is Mammal)
+            {
+                _db.Mammals.Remove((Mammal)animal);
+            }
+
+            if (animal is Bird)
+            {
+                _db.Birds.Remove((Bird)animal);
+            }
+
+            if (animal is Amphibian)
+            {
+                _db.Amphibians.Remove((Amphibian)animal);
+            }
             _db.SaveChanges();
         }
 
@@ -40,7 +65,15 @@ namespace DataAccess.Implementation
                 allAnimals.Add(item);
             }
 
-            ;
+            foreach (var item in _db.Birds.Local.ToObservableCollection())
+            {
+                allAnimals.Add(item);
+            }
+
+            foreach (var item in _db.Amphibians.Local.ToObservableCollection())
+            {
+                allAnimals.Add(item);
+            }
 
             return allAnimals;
         }
