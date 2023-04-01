@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,6 +30,12 @@ namespace AnimalsCatalog.ViewModels
         #region AnimalFactory service
 
         private readonly IAnimalFactory? _animalFactory;
+
+        #endregion
+
+        #region Edit animal service
+
+        private IAnimalEditor _animalEditor;
 
         #endregion
 
@@ -67,7 +74,11 @@ namespace AnimalsCatalog.ViewModels
         public IAnimal? SelectedAnimal
         {
             get => _selectedAnimal;
-            set => Set(ref _selectedAnimal,value);
+            set
+            {
+                Set(ref _selectedAnimal, value);
+                _animalEditor.ChangeAnimal(_selectedAnimal!);
+            }
         }
 
         #endregion
@@ -91,6 +102,7 @@ namespace AnimalsCatalog.ViewModels
         #endregion
 
         #endregion
+        
 
         #region Constructors
         public MainWindowViewModel()
@@ -102,13 +114,18 @@ namespace AnimalsCatalog.ViewModels
             AddAmphibianCommand = new Command(OnAddAmphibianCommandExecute, CanAddAnimalCommandExecute);
             DeleteAnimalCommand = new Command(OnDeleteAnimalCommandExecute, CanDeleteAnimalCommandExecute);
             ChangeProviderWindowCommand = new Command(OnChangeProviderWindowCommandExecute);
+            EditAnimalCommand = new Command(OnEditAnimalCommandExecute, CanEditAnimalCommandExecute);
         }
 
         public MainWindowViewModel(IUserDialog userDialog, 
-                                   IAnimalFactory animalFactory) : this()
+                                   IAnimalFactory animalFactory,
+                                   IAnimalEditor animalEditor) : this()
         {
             _userDialog = userDialog;
             _animalFactory = animalFactory;
+            _animalEditor = animalEditor;
+            _animalEditor.SaveChanges += SavechangesToDb;
+
             DataProviderChangeImplementation.ProviderChange += OnProviderChange;
 
         }
@@ -127,6 +144,15 @@ namespace AnimalsCatalog.ViewModels
             DataAccess = dataAccess;
             Animals = DataAccess?.GetAllAnimalData();
             UserWorkControl = null;
+        }
+
+        #endregion
+
+        #region Save changes to db
+
+        private void SavechangesToDb()
+        {
+            _dataAccess?.SaveChanges();
         }
 
         #endregion
@@ -194,6 +220,19 @@ namespace AnimalsCatalog.ViewModels
             UserWorkControl = _userDialog.ChangeDataProvider();
         }
 
+
+        #endregion
+
+        #region Edit animal record window
+        public ICommand EditAnimalCommand { get; }
+
+        private void OnEditAnimalCommandExecute(object? p)
+        {
+            UserWorkControl = _userDialog.EditAnimalWindow();
+        }
+
+        private bool CanEditAnimalCommandExecute(object? p)
+            => p != null;
 
         #endregion
 

@@ -34,5 +34,10 @@ namespace AnimalsCatalog.Services.Implementation
         {
             return _serviceProvider.GetRequiredService<DataProviderWindowChange>();
         }
+
+        public UserControl EditAnimalWindow()
+        {
+            return _serviceProvider.GetRequiredService<EditAnimal>();
+        }
     }
 }

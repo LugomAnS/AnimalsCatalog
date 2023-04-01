@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using DataAccess;
+using DataModels;
 
 namespace AnimalsCatalog.Services
 {
@@ -8,5 +8,7 @@ namespace AnimalsCatalog.Services
         public void OpenMainWindow();
 
         public UserControl ChangeDataProvider();
+
+        public UserControl EditAnimalWindow();
     }
 }
