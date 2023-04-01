@@ -229,6 +229,7 @@ namespace AnimalsCatalog.ViewModels
         private void OnEditAnimalCommandExecute(object? p)
         {
             UserWorkControl = _userDialog.EditAnimalWindow();
+            _animalEditor.ChangeAnimal(_selectedAnimal!);
         }
 
         private bool CanEditAnimalCommandExecute(object? p)

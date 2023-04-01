@@ -38,7 +38,9 @@
                     
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Редактировать запись" Margin="1" />
+                    <Button Content="Редактировать запись" Margin="1" 
+                            Command="{Binding EditAnimalCommand}"
+                            CommandParameter="{Binding SelectedAnimal}"/>
                     <Button Content="Удалить запись" Margin="1"
                             Command="{Binding DeleteAnimalCommand}"/>
                 </StackPanel>
