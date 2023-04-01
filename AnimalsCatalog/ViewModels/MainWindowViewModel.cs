@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using AnimalsCatalog.Services;
 using AnimalsCatalog.Services.Implementation;
 using DataAccess;
+using DataAccess.Implementation;
 using DataModels;
 using Infrastructure;
 
@@ -20,19 +22,19 @@ namespace AnimalsCatalog.ViewModels
 
         #region UserDialog Service
 
-        private readonly IUserDialog _userDialog;
+        private readonly IUserDialog? _userDialog;
 
         #endregion
 
         #region AnimalFactory service
 
-        private readonly IAnimalFactory _animalFactory;
+        private readonly IAnimalFactory? _animalFactory;
 
         #endregion
 
         #region Data access source
 
-        private IDataAccess? _dataAccess = null;
+        private IDataAccess? _dataAccess;
 
         public IDataAccess? DataAccess
         {
@@ -116,6 +118,12 @@ namespace AnimalsCatalog.ViewModels
 
         private void OnProviderChange(IDataAccess dataAccess)
         {
+            if (dataAccess is NullDataAccess)
+            {
+                MessageBox.Show("Ошибка подключения к базе данных", "Ошибка", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
             DataAccess = dataAccess;
             Animals = DataAccess?.GetAllAnimalData();
             UserWorkControl = null;
