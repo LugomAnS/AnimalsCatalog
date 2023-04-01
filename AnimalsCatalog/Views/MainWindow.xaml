@@ -28,14 +28,18 @@
                             Command="{Binding ChangeProviderWindowCommand}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Добавить млекопитающее" Margin="3" 
+                    <Button Content="Добавить млекопитающее" Margin="1" 
                             Command="{Binding AddMammalCommand}"/>
-                    <Button Content="Добавить птицу"         Margin="3" 
+                    <Button Content="Добавить птицу"         Margin="1" 
                             Command="{Binding AddBirdCommand}"/>
-                    <Button Content="Добавить земноводное"   Margin="3" 
+                    <Button Content="Добавить земноводное"   Margin="1" 
                             Command="{Binding AddAmphibianCommand}"/>
-                    <Button Content="Добавить вручную" Margin="3"/>
-                    <Button Content="Удалить запись" Margin="3"
+                    <Button Content="Добавить вручную" Margin="1"/>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Редактировать запись" Margin="1" />
+                    <Button Content="Удалить запись" Margin="1"
                             Command="{Binding DeleteAnimalCommand}"/>
                 </StackPanel>
             </StackPanel>
