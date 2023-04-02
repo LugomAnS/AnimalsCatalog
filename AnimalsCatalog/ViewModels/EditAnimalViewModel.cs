@@ -1,11 +1,4 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using AnimalsCatalog.Services;
 using DataModels;
 using Infrastructure;
@@ -127,7 +120,7 @@ namespace AnimalsCatalog.ViewModels
             IsChanged = false;
         }
 
-        private bool CanSaveAnimalChangesCommandExecute(object? p) => IsChanged;
+        private bool CanSaveAnimalChangesCommandExecute(object? p) => IsChanged && _animalToEdit != null;
 
         #endregion
 
@@ -143,7 +136,7 @@ namespace AnimalsCatalog.ViewModels
             IsChanged = false;
         }
 
-        private bool CanUndoChangesCommandExecute(object? p) => !IsChanged;
+        private bool CanUndoChangesCommandExecute(object? p) => IsChanged && _animalToEdit != null;
 
         #endregion
 
