@@ -24,6 +24,8 @@ namespace AnimalsCatalog.ViewModels
 
         #endregion
 
+        #region Constructors
+
         public DataProviderWindowChangeVIewModel(IDataProviderChanger dataProviderChanger,
             IUserControlClose userControlControlClose) : this()
         {
@@ -39,6 +41,8 @@ namespace AnimalsCatalog.ViewModels
                 CanApplyProviderChoiceCommandExecute);
             CloseControlCommand = new Command(OnCloseControlCommandCommand, CanCloseControlCommandExecute);
         }
+
+        #endregion
 
         #region Commands
 

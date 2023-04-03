@@ -168,6 +168,7 @@ namespace AnimalsCatalog.ViewModels
 
         #endregion
 
+
         #region Commands
 
         #region Check - can add animal

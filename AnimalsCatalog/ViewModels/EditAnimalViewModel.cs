@@ -13,6 +13,12 @@ namespace AnimalsCatalog.ViewModels
 
         #endregion
 
+        #region Close control service
+
+        private readonly IUserControlClose? _userControlClose;
+
+        #endregion
+
         #region AnimalToEdit: IAnimal - Animal to edit
 
         ///<summary>Animal to edit</summary>
@@ -87,15 +93,20 @@ namespace AnimalsCatalog.ViewModels
             SaveAnimalChangesCommand =
                 new Command(OnSaveAnimalChangesCommandExecute, CanSaveAnimalChangesCommandExecute);
             UndoChangesCommand = new Command(OnUndoChangesCommandExecute, CanUndoChangesCommandExecute);
+            CloseControlCommand = new Command(OnCloseControlCommandExecute, CanCloseControlCommandExecute);
         }
 
-        public EditAnimalViewModel(IAnimalEditor animalEditor) : this()
+        public EditAnimalViewModel(IAnimalEditor animalEditor,
+                                   IUserControlClose userControlClose) : this()
         {
             _animalEditor = animalEditor;
             _animalEditor.AnimalChanging += AnimalToEditChanging;
+            _userControlClose = userControlClose;
         }
 
-        public void AnimalToEditChanging(IAnimal? animal)
+        #region Change animal to edit
+
+        private void AnimalToEditChanging(IAnimal? animal)
         {
             _animalToEdit = animal;
             AnimalType = _animalToEdit?.AnimalType;
@@ -104,6 +115,8 @@ namespace AnimalsCatalog.ViewModels
 
             IsChanged = false;
         }
+        #endregion
+
 
         #region Commands
 
@@ -137,6 +150,18 @@ namespace AnimalsCatalog.ViewModels
         }
 
         private bool CanUndoChangesCommandExecute(object? p) => IsChanged && _animalToEdit != null;
+
+        #endregion
+
+        #region Close control command
+        public ICommand CloseControlCommand { get; }
+
+        private void OnCloseControlCommandExecute(object? p)
+        {
+            _userControlClose?.UserControlCloseRequest();
+        }
+
+        private bool CanCloseControlCommandExecute(object? p) => true;
 
         #endregion
 
