@@ -17,6 +17,7 @@ namespace AnimalsCatalog.Services.Implementation
             => provider switch
             {
                 "SQL" => _serviceProvider.GetRequiredService<SqlData>(),
+                "Text" => _serviceProvider.GetRequiredService<TXTData>(),
                 _ => new NullDataAccess(),
             };
     }

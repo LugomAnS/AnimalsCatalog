@@ -42,6 +42,7 @@ namespace AnimalsCatalog
             services.AddTransient<IAnimalFactory, AnimalFactory>();
             services.AddSingleton<SqlData>();
             services.AddSingleton<SqlLiteDataContext>();
+            services.AddSingleton<TXTData>();
             
             services.AddSingleton<IDataProviderChange, DataProviderChangeImplementation>();
             services.AddSingleton<IDataProviderChanger, DataProviderChangeImplementation>();
