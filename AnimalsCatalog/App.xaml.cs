@@ -46,6 +46,7 @@ namespace AnimalsCatalog
             services.AddSingleton<IDataProviderChanger, DataProviderChangeImplementation>();
             services.AddTransient<IDataAccessFactory, DataAccessFactoryImplementation>();
             services.AddSingleton<IAnimalEditor, AnimalEditorImplementation>();
+            services.AddSingleton<IUserControlClose, UserControlCloseImplementation>();
 
             // MainWindow
             services.AddSingleton(s =>

@@ -13,17 +13,23 @@ namespace AnimalsCatalog.ViewModels
         private readonly IDataProviderChanger _dataProviderChanger;
 
         #endregion
-        
+
+        #region Control close
+
+        private IUserControlClose? _userControlClose;
+
+        #endregion
+
         private string? _providerChoice = null;
 
         #endregion
 
-     
-
-        public DataProviderWindowChangeVIewModel(IDataProviderChanger dataProviderChanger) : this()
+        public DataProviderWindowChangeVIewModel(IDataProviderChanger dataProviderChanger,
+            IUserControlClose userControlControlClose) : this()
         {
             _dataProviderChanger = dataProviderChanger;
-            
+            _userControlClose = userControlControlClose;
+
         }
 
         public DataProviderWindowChangeVIewModel()
@@ -31,6 +37,7 @@ namespace AnimalsCatalog.ViewModels
             ProviderSelectionCommand = new Command(OnProviderSelectionCommandExecute, CanProviderSelectionCommandExecute);
             ApplyProviderChoiceCommand = new Command(OnApplyProviderChoiceCommandExecute,
                 CanApplyProviderChoiceCommandExecute);
+            CloseControlCommand = new Command(OnCloseControlCommandCommand, CanCloseControlCommandExecute);
         }
 
         #region Commands
@@ -58,6 +65,18 @@ namespace AnimalsCatalog.ViewModels
 
         private bool CanApplyProviderChoiceCommandExecute(object? p)
             => _providerChoice != null;
+
+        #endregion
+
+        #region Close control command
+
+        public ICommand CloseControlCommand { get; }
+
+        private void OnCloseControlCommandCommand(object? p)
+        {
+            _userControlClose?.UserControlCloseRequest();
+        }
+        private bool CanCloseControlCommandExecute(object? p) => true;
 
         #endregion
 

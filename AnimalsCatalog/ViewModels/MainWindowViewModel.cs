@@ -119,12 +119,14 @@ namespace AnimalsCatalog.ViewModels
 
         public MainWindowViewModel(IUserDialog userDialog, 
                                    IAnimalFactory animalFactory,
-                                   IAnimalEditor animalEditor) : this()
+                                   IAnimalEditor animalEditor,
+                                   IUserControlClose userControlClose) : this()
         {
             _userDialog = userDialog;
             _animalFactory = animalFactory;
             _animalEditor = animalEditor;
             _animalEditor.SaveChanges += SavechangesToDb;
+            userControlClose.UserControlClose += CloseUserControl;
 
             DataProviderChangeImplementation.ProviderChange += OnProviderChange;
 
@@ -153,6 +155,15 @@ namespace AnimalsCatalog.ViewModels
         private void SavechangesToDb()
         {
             _dataAccess?.SaveChanges();
+        }
+
+        #endregion
+
+        #region Control closing
+
+        private void CloseUserControl()
+        {
+            UserWorkControl = null;
         }
 
         #endregion
