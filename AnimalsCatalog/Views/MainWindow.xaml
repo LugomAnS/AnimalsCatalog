@@ -35,7 +35,8 @@
                             Command="{Binding AddBirdCommand}"/>
                     <Button Content="Добавить земноводное"   Margin="1" 
                             Command="{Binding AddAmphibianCommand}"/>
-                    <Button Content="Добавить вручную" Margin="1"/>
+                    <Button Content="Добавить вручную" Margin="1"
+                            Command="{Binding AddAnimalCommand}"/>
                     
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">

@@ -10,5 +10,7 @@ namespace AnimalsCatalog.Services
         public UserControl ChangeDataProvider();
 
         public UserControl EditAnimalWindow();
+
+        public UserControl AddAnimalWindow();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,6 +7,7 @@ using AnimalsCatalog.Services.Implementation;
 using DataAccess;
 using DataAccess.Implementation;
 using DataModels;
+using DataModels.Models;
 using Infrastructure;
 
 namespace AnimalsCatalog.ViewModels
@@ -115,18 +115,21 @@ namespace AnimalsCatalog.ViewModels
             DeleteAnimalCommand = new Command(OnDeleteAnimalCommandExecute, CanDeleteAnimalCommandExecute);
             ChangeProviderWindowCommand = new Command(OnChangeProviderWindowCommandExecute);
             EditAnimalCommand = new Command(OnEditAnimalCommandExecute, CanEditAnimalCommandExecute);
+            AddAnimalCommand = new Command(OnAddAnimalCommandExecute, CanAddAnimalCommandExecute);
         }
 
         public MainWindowViewModel(IUserDialog userDialog, 
                                    IAnimalFactory animalFactory,
                                    IAnimalEditor animalEditor,
-                                   IUserControlClose userControlClose) : this()
+                                   IUserControlClose userControlClose,
+                                   IAddAnimal addAnimal) : this()
         {
             _userDialog = userDialog;
             _animalFactory = animalFactory;
             _animalEditor = animalEditor;
             _animalEditor.SaveChanges += SavechangesToDb;
             userControlClose.UserControlClose += CloseUserControl;
+            addAnimal.AddNewAnimal += AddUserAnimal;
 
             DataProviderChangeImplementation.ProviderChange += OnProviderChange;
 
@@ -168,6 +171,22 @@ namespace AnimalsCatalog.ViewModels
 
         #endregion
 
+        #region Add new animal
+
+        private void AddUserAnimal(IAnimal animal)
+        {
+            if (animal is NullAnimal)
+            {
+                MessageBox.Show("Ошибка добавления животного, тип может быть " +
+                                "только: Млекопитающее, Земноводное, Птица", "Ошибка", MessageBoxButton.OK);
+                return;
+            }
+
+            DataAccess.AddAnimal(animal);
+            Animals = DataAccess.GetAllAnimalData();
+        }
+
+        #endregion
 
         #region Commands
 
@@ -246,6 +265,17 @@ namespace AnimalsCatalog.ViewModels
 
         private bool CanEditAnimalCommandExecute(object? p)
             => p != null;
+
+        #endregion
+
+        #region Add animal window
+
+        public ICommand AddAnimalCommand { get; }
+
+        private void OnAddAnimalCommandExecute(object? p)
+        {
+            UserWorkControl = _userDialog?.AddAnimalWindow();
+        }
 
         #endregion
 

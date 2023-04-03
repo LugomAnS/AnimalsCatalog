@@ -37,6 +37,7 @@ namespace AnimalsCatalog
             services.AddSingleton<MainWindowViewModel>();
             services.AddTransient<DataProviderWindowChangeVIewModel>();
             services.AddSingleton<EditAnimalViewModel>();
+            services.AddTransient<AddAnimalViewModel>();
 
             services.AddTransient<IAnimalFactory, AnimalFactory>();
             services.AddSingleton<SqlData>();
@@ -47,6 +48,7 @@ namespace AnimalsCatalog
             services.AddTransient<IDataAccessFactory, DataAccessFactoryImplementation>();
             services.AddSingleton<IAnimalEditor, AnimalEditorImplementation>();
             services.AddSingleton<IUserControlClose, UserControlCloseImplementation>();
+            services.AddSingleton<IAddAnimal, AddAnimalImplementation>();
 
             // MainWindow
             services.AddSingleton(s =>
@@ -69,6 +71,14 @@ namespace AnimalsCatalog
             {
                 var model = s.GetRequiredService<EditAnimalViewModel>();
                 EditAnimal window = new EditAnimal { DataContext = model };
+                return window;
+            });
+
+            // Add animal window
+            services.AddTransient(s =>
+            {
+                var model = s.GetRequiredService<AddAnimalViewModel>();
+                AddAnimalWindow window = new AddAnimalWindow { DataContext = model };
                 return window;
             });
             

@@ -1,6 +1,6 @@
 ﻿namespace DataModels.Models
 {
-    internal class NullAnimal : IAnimal
+    public class NullAnimal : IAnimal
     {
         public int Id { get; set; } = -1;
         public string AnimalType { get; set; } = "Undefined";

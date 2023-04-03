@@ -39,5 +39,10 @@ namespace AnimalsCatalog.Services.Implementation
         {
             return _serviceProvider.GetRequiredService<EditAnimal>();
         }
+
+        public UserControl AddAnimalWindow()
+        {
+            return _serviceProvider.GetRequiredService<AddAnimalWindow>();
+        }
     }
 }
