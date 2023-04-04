@@ -34,22 +34,38 @@ namespace AnimalsCatalog
             var services = new ServiceCollection();
 
             services.AddSingleton<IUserDialog, UserDialogImplementation>();
+   
+            #region Data & Data access
+
+            services.AddTransient<IDataAccessFactory, DataAccessFactoryImplementation>();
+
+            services.AddSingleton<SqlData>();
+            services.AddSingleton<SqlLiteDataContext>();
+            services.AddSingleton<TXTData>();
+
+            #endregion
+
+            #region Behavior 
+
+            services.AddSingleton<IDataProviderChange, DataProviderChangeImplementation>();
+            services.AddSingleton<IDataProviderChanger, DataProviderChangeImplementation>();
+            services.AddTransient<IAnimalFactory, AnimalFactory>();
+            services.AddSingleton<IAnimalEditor, AnimalEditorImplementation>();
+            services.AddSingleton<IUserControlClose, UserControlCloseImplementation>();
+            services.AddSingleton<IAddAnimal, AddAnimalImplementation>();
+
+            #endregion
+            
+            #region ViewModels
+
             services.AddSingleton<MainWindowViewModel>();
             services.AddTransient<DataProviderWindowChangeVIewModel>();
             services.AddSingleton<EditAnimalViewModel>();
             services.AddTransient<AddAnimalViewModel>();
 
-            services.AddTransient<IAnimalFactory, AnimalFactory>();
-            services.AddSingleton<SqlData>();
-            services.AddSingleton<SqlLiteDataContext>();
-            services.AddSingleton<TXTData>();
-            
-            services.AddSingleton<IDataProviderChange, DataProviderChangeImplementation>();
-            services.AddSingleton<IDataProviderChanger, DataProviderChangeImplementation>();
-            services.AddTransient<IDataAccessFactory, DataAccessFactoryImplementation>();
-            services.AddSingleton<IAnimalEditor, AnimalEditorImplementation>();
-            services.AddSingleton<IUserControlClose, UserControlCloseImplementation>();
-            services.AddSingleton<IAddAnimal, AddAnimalImplementation>();
+            #endregion
+
+            #region Views
 
             // MainWindow
             services.AddSingleton(s =>
@@ -82,7 +98,8 @@ namespace AnimalsCatalog
                 AddAnimalWindow window = new AddAnimalWindow { DataContext = model };
                 return window;
             });
-            
+
+            #endregion
 
             return services;
         }
