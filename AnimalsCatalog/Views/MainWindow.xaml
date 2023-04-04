@@ -1,0 +1,54 @@
+﻿<Window x:Class="AnimalsCatalog.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:AnimalsCatalog.ViewModels"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable = True} "
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <GroupBox Header="Список животных" DockPanel.Dock="Left">
+            <ListBox ItemsSource="{Binding Animals}"
+                     SelectedItem="{Binding SelectedAnimal}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="3,1,3,1">
+                            <TextBlock Text="{Binding AnimalType}" FontSize="12"/>
+                            <TextBlock Text="{Binding AnimalSubType}" FontSize="8"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox DockPanel.Dock="Top" Header="Действия">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Источник данных" Margin="3,5,3,3"
+                            Command="{Binding ChangeProviderWindowCommand}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Добавить млекопитающее" Margin="1" 
+                            Command="{Binding AddMammalCommand}"/>
+                    <Button Content="Добавить птицу"         Margin="1" 
+                            Command="{Binding AddBirdCommand}"/>
+                    <Button Content="Добавить земноводное"   Margin="1" 
+                            Command="{Binding AddAmphibianCommand}"/>
+                    <Button Content="Добавить вручную" Margin="1"
+                            Command="{Binding AddAnimalCommand}"/>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Редактировать запись" Margin="1" 
+                            Command="{Binding EditAnimalCommand}"
+                            CommandParameter="{Binding SelectedAnimal}"/>
+                    <Button Content="Удалить запись" Margin="1"
+                            Command="{Binding DeleteAnimalCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <UserControl Content="{Binding UserWorkControl}"/>
+    </DockPanel>
+</Window>
